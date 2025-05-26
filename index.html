@@ -1,0 +1,211 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <title>scheDapps</title>
+    </head>
+    <body>
+        <div class="auth-container" id="authPage">
+            <!-- Title at the top -->
+            <h1 class="scheDapps" id="scheDapps">scheDapps</h1>
+
+            <!-- Toggle Switch for Login/Signup -->
+            <div class="toggle-container" id="toggleSign">
+                <span class="toggle-label" >Login</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="authToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Sign Up</span>
+            </div>
+            
+            <!-- Login Page -->
+            <div class="loginPage" id="loginPage">
+                <div class="boxLogin">
+                    <h2>LOGIN</h2>
+                    <div class="form-group">
+                        <label for="usernameLogin">Username</label>
+                        <input type="text" id="usernameLogin" name="usernameLogin" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="passwordLogin" name="passwordLogin" placeholder="Enter your password">
+                    </div>
+                    <button class="loginBtn" onclick="login()">LOG IN</button>            
+                </div>
+            </div>
+            
+            <!-- Sign Up Page -->
+            <div class="signUpPage" id="signUpPage">
+                <div class="boxSignUp">
+                    <h2>SIGN UP</h2>
+                    <div class="form-grup">
+                        <label for="usernameSignUp">Username</label>
+                        <input type="text" id="usernameSignUp" name="usernameSignUp" placeholder="Create username">
+                    </div>
+                    <div class="form-grup">
+                        <label for="passwordSignUp">Password</label>
+                        <input type="password" id="passwordSignUp" name="passwordSignUp" placeholder="Enter your password">
+                    </div>
+                    <div class="form-grup">
+                        <label for="confirmPasswordSignUp">Confirm Password</label>
+                        <input type="password" id="confirmPasswordSignUp" name="confirmPasswordSignUp" placeholder="Confirm password">
+                    </div>
+                    <button class="signUpButton" onclick="signUp()">SIGN UP</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Application Page -->
+        <div class="mainPage pageHidden" id="mainPage">
+            <div class="navbar">
+                <button onclick="showSection('Weekly')">Weekly</button>
+                <button onclick="showSection('Events')">Events</button>
+                <button onclick="showSection('Tasks')">Tasks</button>
+                <button onclick="logout()" style="background-color: #cf6679;">Logout</button>
+            </div>
+            
+            <div class="Section" id="Weekly">
+                <h2>WEEKLY</h2>
+                
+                <div class="edit-toggle">
+                    <label class="toggle-switch"> 
+                        <input type="checkbox" id="lockingWeekly" onchange="toggleEditMode('Weekly')">
+                        <span class="toggle-slider"></span> 
+                    </label>
+                    <label for="lockingWeekly">Lock Schedule</label>
+                </div>
+                
+                <div id="Monday">
+                    <h3>Monday</h3>
+                    <div class="input-group weekly-inputs">
+                        <input type="text" id="actMonday" placeholder="Activity">
+                        <input type="time" id="timeStartMonday" placeholder="Start Time">
+                        <input type="time" id="timeEndMonday" placeholder="End Time">
+                        <input type="text" id="locMonday" placeholder="Location">
+                        <button onclick="addTask('Monday')">ADD</button>
+                    </div>
+                </div>
+                <ul id="listMonday"></ul>
+                
+                <div id="Tuesday">
+                    <h3>Tuesday</h3>
+                    <div class="input-group weekly-inputs">
+                        <input type="text" id="actTuesday" placeholder="Activity">
+                        <input type="time" id="timeStartTuesday" placeholder="Start Time">
+                        <input type="time" id="timeEndTuesday" placeholder="End Time">
+                        <input type="text" id="locTuesday" placeholder="Location">
+                        <button onclick="addTask('Tuesday')">ADD</button>
+                    </div>
+                </div>
+                <ul id="listTuesday"></ul>
+                
+                <div id="Wednesday">
+                    <h3>Wednesday</h3>
+                    <div class="input-group weekly-inputs">
+                        <input type="text" id="actWednesday" placeholder="Activity">
+                        <input type="time" id="timeStartWednesday" placeholder="Start Time">
+                        <input type="time" id="timeEndWednesday" placeholder="End Time">
+                        <input type="text" id="locWednesday" placeholder="Location">
+                        <button onclick="addTask('Wednesday')">ADD</button>
+                    </div>
+                </div>
+                <ul id="listWednesday"></ul>
+                
+                <div id="Thursday">
+                    <h3>Thursday</h3>
+                    <div class="input-group weekly-inputs">
+                        <input type="text" id="actThursday" placeholder="Activity">
+                        <input type="time" id="timeStartThursday" placeholder="Start Time">
+                        <input type="time" id="timeEndThursday" placeholder="End Time">
+                        <input type="text" id="locThursday" placeholder="Location">
+                        <button onclick="addTask('Thursday')">ADD</button>
+                    </div>
+                </div>
+                <ul id="listThursday"></ul>
+                
+                <div id="Friday">
+                    <h3>Friday</h3>
+                    <div class="input-group weekly-inputs">
+                        <input type="text" id="actFriday" placeholder="Activity">
+                        <input type="time" id="timeStartFriday" placeholder="Start Time">
+                        <input type="time" id="timeEndFriday" placeholder="End Time">
+                        <input type="text" id="locFriday" placeholder="Location">
+                        <button onclick="addTask('Friday')">ADD</button>
+                    </div>
+                </div>
+                <ul id="listFriday"></ul>
+                
+                <div id="Saturday">
+                    <h3>Saturday</h3>
+                    <div class="input-group weekly-inputs">
+                        <input type="text" id="actSaturday" placeholder="Activity">
+                        <input type="time" id="timeStartSaturday" placeholder="Start Time">
+                        <input type="time" id="timeEndSaturday" placeholder="End Time">
+                        <input type="text" id="locSaturday" placeholder="Location">
+                        <button onclick="addTask('Saturday')">ADD</button>
+                    </div>
+                </div>
+                <ul id="listSaturday"></ul>
+                
+                <div id="Sunday">
+                    <h3>Sunday</h3>
+                    <div class="input-group weekly-inputs">
+                        <input type="text" id="actSunday" placeholder="Activity">
+                        <input type="time" id="timeStartSunday" placeholder="Start Time">
+                        <input type="time" id="timeEndSunday" placeholder="End Time">
+                        <input type="text" id="locSunday" placeholder="Location">
+                        <button onclick="addTask('Sunday')">ADD</button>
+                    </div>
+                </div>
+                <ul id="listSunday"></ul>
+            </div>
+            
+            <div class="Section hidden" id="Events">
+                <h2>EVENTS</h2>
+                
+                <div class="edit-toggle">
+                    <label class="toggle-switch"> 
+                        <input type="checkbox" id="lockingEvents" onchange="toggleEditMode('Events')">
+                        <span class="toggle-slider"></span> 
+                    </label>
+                    <label for="lockingEvents">Lock Events</label>
+                </div>
+                
+                <div class="input-group events-inputs">
+                    <input type="text" id="eventName" placeholder="Event Name">
+                    <input type="date" id="eventDate">
+                    <input type="time" id="eventTime">
+                    <button onclick="addEvent()">ADD</button>
+                </div>
+                <ul id="listEvents"></ul>
+            </div>
+            
+            <div class="Section hidden" id="Tasks">
+                <h2>TASKS</h2>
+                
+                <div class="edit-toggle">
+                    <label class="toggle-switch"> 
+                        <input type="checkbox" id="lockingTasks" onchange="toggleEditMode('Tasks')">
+                        <span class="toggle-slider"></span> 
+                    </label>
+                    <label for="lockingTasks">Lock Tasks</label>
+                </div>
+                
+                <div class="input-group tasks-inputs">
+                    <input type="text" placeholder="Task Name" id="taskName">
+                    <input type="text" placeholder="Description" id="taskDesc">
+                    <input type="date" id="taskDL">
+                    <input type="time" id="timeDL">
+                    <button onclick="addTasks()">ADD</button>
+                </div>
+                <ul id="listTasks"></ul>
+            </div>
+        </div>
+        <script src="log/logScript.js"></script>
+        <script src="weeklyBackEnd/weeklyScript.js"></script>
+        <script src="script.js"></script>
+    </body>
+    </html>
