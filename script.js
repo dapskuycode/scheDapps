@@ -1,5 +1,3 @@
-
-
 window.onload = function() {
     if (localStorage.getItem('loggedIn') === 'true') {
         document.getElementById('loginPage').classList.add('pageHidden');
@@ -80,50 +78,6 @@ function addEvent() {
     document.getElementById(`eventTime`).value = '';
 }
 
-function addTasks() {
-    if (isLocked('Tasks')) {
-        alert("Tasks are locked. Toggle edit mode to make changes.");
-        return;
-    }
-    
-    const taskName = document.getElementById(`taskName`).value;
-    const taskDesc = document.getElementById(`taskDesc`).value;
-    const taskDL = document.getElementById(`taskDL`).value;
-    const timeDL = document.getElementById(`timeDL`).value;
-
-    if (taskName === '' || taskDL === '' || timeDL === '') {
-        alert("Some input is missing");
-        return;
-    }
-
-    const li = document.createElement('li');
-    li.innerHTML = `${taskName} - ${taskDL} - ${timeDL}`;
-
-    const p = document.createElement('p');
-    p.className = 'task-description';
-    p.innerHTML = `Description: ${taskDesc}`;
-
-    const btn = document.createElement(`button`);
-    btn.textContent = 'DONE';
-    btn.onclick = function() {
-        if (isLocked('Tasks')) {
-            alert("Tasks are locked. Toggle edit mode to make changes.");
-            return;
-        }
-        li.remove();
-        p.remove();
-    }
-
-    li.appendChild(btn);
-    document.getElementById('listTasks').append(li);
-    document.getElementById('listTasks').append(p);
-
-    document.getElementById(`taskName`).value = '';
-    document.getElementById(`taskDesc`).value = '';
-    document.getElementById(`taskDL`).value = '';
-    document.getElementById(`timeDL`).value = '';
-}
-
 function showSection(section) {
     const sections = document.querySelectorAll(`.Section`);
     
@@ -132,6 +86,12 @@ function showSection(section) {
     }
     if(section === 'Weekly') {
         loadWeeklySchedule();
+    }
+    if(section === 'Events') {
+        loadEvents();
+    }
+    if(section === 'Tasks') {
+        loadTask();
     }
     
     const show = document.getElementById(section);
