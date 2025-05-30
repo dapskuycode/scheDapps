@@ -107,7 +107,7 @@ async function loadTask(){
 }
 
 function renderTasks(tasks) {
-
+    
     console.log('Data received by renderTasks:', tasks);
 
     const listTasks = document.getElementById('listTasks');
@@ -124,17 +124,66 @@ function renderTasks(tasks) {
         const btn = document.createElement('button');
         btn.textContent = 'DONE';
         btn.onclick = function() {
+            console.log('[KLIK TOMBOL DONE] Mencoba menghapus task dengan ID:', task.id, 'Tipe:', typeof task.id);
             if (isLocked('Tasks')) {
                 alert("Tasks are locked. Toggle edit mode to make changes.");
                 return;
             }
+            deleteTask(task.id); // Panggil fungsi untuk menghapus task dari database
             li.remove();
             p.remove();
-            // Anda mungkin juga ingin memanggil fungsi untuk menghapus task dari database di sini
+            
         };
 
         li.appendChild(btn);
         listTasks.append(li);
         listTasks.append(p);
     });
+}
+
+async function deleteTask(taskId) {
+    console.log("Task ID to delete:", taskId, "Type:", typeof taskId);
+    if (isLocked('Tasks')) {
+        alert("Tasks are locked. Toggle edit mode to make changes.");
+        return;
+    }
+    const formData = new FormData();
+    formData.append('id', taskId); // <--- PERBAIKAN: 'taskId' diubah menjadi 'id'
+
+    try {
+        const response = await fetch('taskBackEnd/delTask.php', { // Pastikan path ini benar
+            method: 'POST',
+            body: formData
+        });
+
+        // Coba untuk selalu mendapatkan body respons untuk debugging, lalu parse sebagai JSON jika response.ok
+        const responseText = await response.text(); // Dapatkan respons sebagai teks dulu
+
+        if (!response.ok) {
+            // Jika server mengirim JSON error, coba parse
+            try {
+                const errData = JSON.parse(responseText);
+                // Gunakan pesan error dari server jika ada, jika tidak gunakan teks respons mentah
+                throw new Error(errData.message || responseText || `Server error: ${response.status}`);
+            } catch (e) {
+                // Jika respons bukan JSON (misalnya HTML error), tampilkan teks respons mentah
+                throw new Error(responseText || `Server error: ${response.status}`);
+            }
+        }
+
+        // Jika response.ok, kita harapkan JSON yang valid
+        const result = JSON.parse(responseText); 
+
+        if (result.success) {
+            alert(result.message || 'Task deleted successfully');
+            loadTask(); // Muat ulang daftar tugas setelah penghapusan
+        } else {
+            // Pesan error dari JSON yang dikirim server (misal, task tidak ditemukan)
+            alert('Failed to delete task: ' + (result.message || 'Unknown error from server.'));
+        }
+    } catch (error) {
+        console.error('Error during deleteTask fetch:', error);
+        // error.message akan berisi pesan yang kita buat di atas
+        alert('An error occurred while deleting task: ' + error.message);
+    }
 }

@@ -18,7 +18,7 @@ $userId = $_SESSION['user_id'];
 $tasks = [];
 
 try {
-    $sql = "SELECT task_name, description, due_date, due_time 
+    $sql = "SELECT id,task_name, description, due_date, due_time 
             FROM tasks 
             WHERE user_id = ? 
             ORDER BY due_date ASC";

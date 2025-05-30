@@ -87,9 +87,9 @@ function showSection(section) {
     if(section === 'Weekly') {
         loadWeeklySchedule();
     }
-    if(section === 'Events') {
-        loadEvents();
-    }
+    // if(section === 'Events') {
+    //     loadEvents();
+    // }
     if(section === 'Tasks') {
         loadTask();
     }
